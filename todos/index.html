@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sticker</title>
+
+    <link rel="icon" type="image/x-icon" href="../logo.svg">
+
+    <link rel="stylesheet" href="../global.css">
+    <link rel="stylesheet" href="style.css">
+
+    <link rel='stylesheet'
+        href='https://cdn-uicons.flaticon.com/2.5.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+    <link rel='stylesheet'
+        href='https://cdn-uicons.flaticon.com/2.5.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+
+    <script src="index.js" defer></script>
+</head>
+
+<body>
+    <div id="sidebar">
+        <div id="sidebar-container">
+            <button class="sidebar-button" onclick="document.location.href = '/'">
+                <i class="fi fi-rr-home"></i>
+                <span class="sidebar-button-tooltip">Home</span>
+            </button>
+
+            <button class="sidebar-button current-sidebar-button" onclick="document.location.href = '/todos'">
+                <i class="fi fi-sr-list-check"></i>
+                <span class="sidebar-button-tooltip">Todo List</span>
+            </button>
+
+            <!-- <button class="sidebar-button" onclick="document.location.href = '/timetable'">
+                <i class="fi fi-rr-calendar-days"></i>
+                <span class="sidebar-button-tooltip">Timetable</span>
+            </button>
+
+            <button class="sidebar-button" onclick="document.location.href = '/events'">
+                <i class="fi fi-rr-calendar-star"></i>
+                <span class="sidebar-button-tooltip">Events</span>
+            </button>
+
+            <button class="sidebar-button" onclick="document.location.href = '/board'">
+                <i class="fi fi-rr-note-sticky"></i>
+                <span class="sidebar-button-tooltip">Board</span>
+            </button>
+
+            <button class="sidebar-button" onclick="document.location.href = '/flashcards'">
+                <i class="fi fi-rr-cards-blank"></i>
+                <span class="sidebar-button-tooltip">Flashcards</span>
+            </button> -->
+
+            <hr>
+
+            <button class="sidebar-button" onclick="document.location.href = '/settings'">
+                <i class="fi fi-rr-settings"></i>
+                <span class="sidebar-button-tooltip">Settings</span>
+            </button>
+        </div>
+    </div>
+    <div id="content">
+        <div id="title">
+            <h1>Todo List</h1>
+        </div>
+
+        <div id="todos-container">
+            <div id="todos">
+
+            </div>
+            <button id="new-todo"><i class="fi fi-rr-plus"></i> New todo</button>
+        </div>
+
+        <div id="create-modal" class="modal">
+            <div class="modal-content">
+                <span class="close"><i class="fi fi-rr-cross"></i></span>
+                <h2>Create Todo</h2>
+                <label for="new-title">Title:</label><br>
+                <input type="text" name="new-title" id="new-title" autocomplete="off">
+                <span id="title-error"><i class="fi fi-rr-triangle-warning"></i> Please enter a title</span>
+                <br>
+                <label for="new-date">Due date:</label><br>
+                <input type="date" name="new-date" id="new-date">
+                <br>
+                <button onclick="createTodo();" id="create-todo">Create todo</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

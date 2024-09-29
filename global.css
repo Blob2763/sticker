@@ -1,0 +1,217 @@
+:root {
+    --sidebar-colour: #20232b;
+    --yellow: #ffbf00;
+    --red: #e0112f;
+    --blue: #38afd3;
+    --green: #5cd179;
+    --purple: #b661dc;
+    --orange: #fd813b;
+}
+
+body {
+    display: grid;
+    grid-template-columns: 69px 1fr;
+    grid-template-rows: 1fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+
+    margin: 0;
+
+    height: 100vh;
+
+    background-color: var(--sidebar-colour);
+}
+
+body,
+button {
+    font-family: "Public Sans", sans-serif;
+
+    color: white;
+}
+
+#sidebar {
+    grid-area: 1 / 1 / 1 / 2;
+
+    background-color: var(--sidebar-colour);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#sidebar hr {
+    margin: 4px;
+
+    width: 50px;
+
+    border: 1px solid #262931;
+}
+
+#sidebar-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.sidebar-button {
+    margin: auto;
+
+    border: none;
+    border-radius: 4px;
+
+    background-color: var(--sidebar-colour);
+
+    width: 38px;
+    height: 38px;
+
+    margin: 4px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.sidebar-button i {
+    font-size: 20px;
+
+    color: #787878;
+
+    height: 20px;
+}
+
+.sidebar-button:hover {
+    background-color: #262931;
+}
+
+.sidebar-button:hover i {
+    color: var(--yellow);
+}
+
+.sidebar-button-tooltip {
+    position: absolute;
+    left: 50px;
+
+    background-color: #262931;
+
+    padding: 8px;
+
+    width: max-content;
+
+    visibility: hidden;
+    opacity: 0;
+
+    transition: 0.2s;
+
+    border-radius: 4px;
+
+    /* No highlighting text */
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.sidebar-button:hover .sidebar-button-tooltip {
+    visibility: visible;
+    opacity: 1;
+
+    left: 68px;
+}
+
+.sidebar-button:hover .sidebar-button-tooltip::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    margin-top: -8px;
+    border-width: 8px;
+    border-style: solid;
+    border-color: transparent #262931 transparent transparent;
+}
+
+.current-sidebar-button {
+    background-color: #262931;
+}
+
+.current-sidebar-button i {
+    color: var(--yellow);
+}
+
+#content {
+    grid-area: 1 / 2 / 2 / 3;
+
+    background-color: #1f1f1f;
+
+    border-radius: 8px;
+
+    margin: 4px;
+
+    display: grid;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+
+    padding: 8px;
+
+    overflow: auto;
+}
+
+#title {
+    grid-area: 1 / 1 / 2 / 2;
+
+    padding-left: 16px;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: #00000066;
+}
+
+.modal-content {
+    background-color: #262931;
+    margin: 15% auto;
+    padding: 20px;
+    padding-left: 36px;
+    width: 60%;
+
+    border-radius: 4px;
+}
+
+.close {
+    margin: auto;
+
+    border: none;
+    border-radius: 4px;
+
+    width: 38px;
+    height: 38px;
+
+    margin: 4px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    float: right;
+}
+
+.close:hover,
+.close:focus {
+    color: var(--red);
+    cursor: pointer;
+}
+
+input {
+    font-family: "Public Sans", sans-serif;
+}
