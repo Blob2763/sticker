@@ -27,17 +27,17 @@
 <body>
     <div id="sidebar">
         <div id="sidebar-container">
-            <button class="sidebar-button" onclick="document.location.href = '/sticker/'">
+            <button class="sidebar-button" onclick="document.location.href = '/'">
                 <i class="fi fi-rr-home"></i>
                 <span class="sidebar-button-tooltip">Home</span>
             </button>
 
-            <button class="sidebar-button current-sidebar-button" onclick="document.location.href = '/sticker/todos'">
+            <button class="sidebar-button current-sidebar-button" onclick="document.location.href = '/todos'">
                 <i class="fi fi-sr-list-check"></i>
                 <span class="sidebar-button-tooltip">Todo List</span>
             </button>
 
-            <!-- <button class="sidebar-button" onclick="document.location.href = '/timetable'">
+            <button class="sidebar-button" onclick="document.location.href = '/timetable'">
                 <i class="fi fi-rr-calendar-days"></i>
                 <span class="sidebar-button-tooltip">Timetable</span>
             </button>
@@ -47,22 +47,17 @@
                 <span class="sidebar-button-tooltip">Events</span>
             </button>
 
-            <button class="sidebar-button" onclick="document.location.href = '/board'">
-                <i class="fi fi-rr-note-sticky"></i>
-                <span class="sidebar-button-tooltip">Board</span>
-            </button>
-
             <button class="sidebar-button" onclick="document.location.href = '/flashcards'">
                 <i class="fi fi-rr-cards-blank"></i>
                 <span class="sidebar-button-tooltip">Flashcards</span>
-            </button> -->
+            </button>
 
-            <!--<hr>
+            <hr>
 
             <button class="sidebar-button" onclick="document.location.href = '/settings'">
                 <i class="fi fi-rr-settings"></i>
                 <span class="sidebar-button-tooltip">Settings</span>
-            </button>-->
+            </button>
         </div>
     </div>
     <div id="content">
@@ -70,11 +65,20 @@
             <h1>Todo List</h1>
         </div>
 
+        <div id="controls">
+            <label for="sort-by">Sort by:</label>
+            <select name="sort-by" id="sort-by">
+                <option value="due-earliest-first">Due date (earliest first)</option>
+                <option value="due-latest-first">Due date (latest first)</option>
+            </select>
+            <br>
+            <button id="new-todo"><i class="fi fi-rr-plus"></i> New todo</button>
+        </div>
+
         <div id="todos-container">
             <div id="todos">
 
             </div>
-            <button id="new-todo"><i class="fi fi-rr-plus"></i> New todo</button>
         </div>
 
         <div id="create-modal" class="modal">

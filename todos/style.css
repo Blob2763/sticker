@@ -1,12 +1,23 @@
 #content {
     grid-template-columns: 1fr;
-    grid-template-rows: 78px 1fr;
+    grid-template-rows: 78px 160px 1fr;
+
+    padding-bottom: 0;
+}
+
+#controls {
+    grid-area: 2 / 1 / 3 / 2;
+
+    margin: 40px;
+    padding: 16px;
 }
 
 #todos-container {
-    grid-area: 2 / 1 / 3 / 2;
+    grid-area: 3 / 1 / 4 / 2;
 
     padding: 16px;
+
+    overflow: auto;
 }
 
 .todo {
@@ -20,6 +31,7 @@
 
     margin: 16px;
     margin-left: 24px;
+    margin-top: 0;
     padding: 8px;
     padding-left: 24px;
 }
@@ -29,9 +41,16 @@
 }
 
 .todo-title {
+    margin-bottom: 2px;
+}
+
+.todo-title.incomplete {
     color: var(--yellow);
 
-    margin-bottom: 2px;
+}
+
+.todo-title.complete {
+    color: var(--green);
 }
 
 .todo-due-date-container {
@@ -85,7 +104,8 @@
     color: var(--green);
 }
 
-#new-todo, #create-todo {
+#new-todo,
+#create-todo {
     background-color: var(--sidebar-colour);
 
     border: none;
@@ -97,6 +117,10 @@
     padding: 8px;
 }
 
+#new-todo {
+    margin-left: 0;
+}
+
 #create-todo {
     margin-top: 16px;
     margin-left: 0;
@@ -106,7 +130,9 @@
     margin: 4px;
 }
 
-#new-title, #new-date {
+#new-title,
+#new-date,
+#sort-by {
     color: white;
 
     background-color: var(--sidebar-colour);
@@ -119,7 +145,7 @@
 }
 
 label {
-    display:inline-block;
+    display: inline-block;
 
     margin-bottom: 4px;
 }
