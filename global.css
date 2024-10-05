@@ -106,6 +106,8 @@ button {
 
     border-radius: 4px;
 
+    pointer-events: none;
+
     /* No highlighting text */
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -212,6 +214,49 @@ button {
     cursor: pointer;
 }
 
-input {
+input, select {
     font-family: "Public Sans", sans-serif;
+}
+
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    appearance: none;
+
+    background-repeat: no-repeat;
+    background-image: linear-gradient(45deg, transparent 50%, currentColor 50%), linear-gradient(135deg, currentColor 50%, transparent 50%);
+    background-position: right 14.8px top 1em, right 10px top 1em;
+    background-size: 5px 5px, 5px 5px;
+
+    padding-right: 2em !important
+}
+
+select::-ms-expand {
+    display: none;
+}
+
+/* scrollbar */
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: var(--sidebar-colour);
+
+    border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #262931;
+
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #404555;
 }

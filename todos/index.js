@@ -3,7 +3,7 @@ let db;
 const request = indexedDB.open("TodoListDB", 1);
 
 request.onerror = (event) => {
-    console.error("Why didn't you allow my web app to use IndexedDB?!");
+    console.error("Why didn't you allow Sticker to use IndexedDB?!");
 };
 
 request.onsuccess = (event) => {
@@ -24,15 +24,19 @@ request.onupgradeneeded = (event) => {
     }
 };
 
-function addTodo(title, dueDate) {
+// Make sure all todos have the same structure
+fixTodos();
+
+function addTodo(title, dueDate, id = Date.now()) {
     const transaction = db.transaction(["todos"], "readwrite");
     const store = transaction.objectStore("todos");
 
     // Create a todo object
     const todo = {
-        id: Date.now(),  // Using timestamp as a unique ID
+        id: id,  // Using timestamp as a unique ID
         title: title,
         dueDate: dueDate,  // Date sting in the form YYYY-MM-DD
+        dueDateObject: new Date(dueDate),
         completed: false,  // Initially, a todo is not completed
     };
 
@@ -112,6 +116,22 @@ function getAllTodos() {
     });
 }
 
+function fixTodos() {
+    // used to make sure each todo has the same structure
+
+    // Use the Promise returned by getAllTodos
+    getAllTodos()
+        .then(todos => {
+            todos.forEach(todo => {
+                console.log(todo);
+                deleteTodo(todo.id);
+                addTodo(todo.title, todo.dueDate, todo.id);
+            });
+        }).catch(error => {
+            console.error('Failed to fix todos:', error);
+        });
+}
+
 function formatDate(dateYMD) {
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
@@ -126,6 +146,16 @@ function formatDate(dateYMD) {
     return dateString;
 }
 
+function getSettings() {
+    return {
+        sortBy: document.getElementById('sort-by').value,
+    };
+}
+
+document.getElementById('sort-by').addEventListener('change', function () {
+    renderTodos();
+});
+
 function renderTodos() {
     const listElement = document.getElementById('todos');
 
@@ -134,31 +164,49 @@ function renderTodos() {
         .then(todos => {
             listElement.innerHTML = '';
 
+            const settings = getSettings();
+            if (settings.sortBy === 'due-earliest-first') {
+                todos.sort((a, b) => a.dueDateObject.getTime() - b.dueDateObject.getTime());
+            } else if (settings.sortBy === 'due-latest-first') {
+                todos.sort((a, b) => b.dueDateObject.getTime() - a.dueDateObject.getTime());
+            }
+
             todos.forEach(todo => {
-                if (!todo.completed) {
+                if (true) {
                     const todoElement = document.createElement('div');
                     todoElement.className = 'todo';
 
                     const todoBody = document.createElement('div');
                     todoBody.className = 'todo-body';
 
-                    todoBody.innerHTML += `<h2 class="todo-title">${todo.title}</h2>`;
+                    todoBody.innerHTML += `<h2 class="todo-title ${todo.completed ? 'complete' : 'incomplete'}">${todo.title}</h2>`;
 
                     if (todo.dueDate) {
-                        todoBody.innerHTML += `<p class="todo-due-date-container">
-                    Due <span class="todo-due-date">${formatDate(todo.dueDate)}</span>
-                    </p>`;
+                        todoBody.innerHTML += `
+                            <p class="todo-due-date-container">
+                            Due <span class="todo-due-date">${formatDate(todo.dueDate)}</span>
+                            </p>
+                        `;
+                    } else {
+                        todoBody.innerHTML += '<p class="todo-due-date-container"></p>';
                     }
 
                     todoElement.appendChild(todoBody);
 
-                    todoElement.innerHTML += `
-                <div class="todo-controls">
-                <button onclick="deleteTodo(${todo.id}); renderTodos();" class="delete-button"><i class="fi fi-rr-trash"></i></button>
-                <!-- <button class="edit-button"><i class="fi fi-rr-pencil"></i></button> -->
-                <button onclick="markTodoAsCompleted(${todo.id}); renderTodos();" class="mark-as-done-button"><i class="fi fi-rr-check"></i></button>
-                </div>
-                `;
+                    if (todo.completed) {
+                        todoElement.innerHTML += `
+                            <div class="todo-controls">
+                            <button onclick="deleteTodo(${todo.id}); renderTodos();" class="delete-button"><i class="fi fi-rr-trash"></i></button>
+                            <!-- <button class="edit-button"><i class="fi fi-rr-pencil"></i></button> --></div>
+                        `;
+                    } else {
+                        todoElement.innerHTML += `
+                            <div class="todo-controls">
+                            <button onclick="deleteTodo(${todo.id}); renderTodos();" class="delete-button"><i class="fi fi-rr-trash"></i></button>
+                            <!-- <button class="edit-button"><i class="fi fi-rr-pencil"></i></button> -->
+                            <button onclick="markTodoAsCompleted(${todo.id}); renderTodos();" class="mark-as-done-button"><i class="fi fi-rr-check"></i></button></div>
+                        `;
+                    }
 
                     listElement.appendChild(todoElement);
                 }
