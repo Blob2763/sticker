@@ -24,10 +24,7 @@ request.onupgradeneeded = (event) => {
     }
 };
 
-// Make sure all todos have the same structure
-fixTodos();
-
-function addTodo(title, dueDate, id = Date.now()) {
+function addTodo(title, dueDate, id = Date.now(), completed=false) {
     const transaction = db.transaction(["todos"], "readwrite");
     const store = transaction.objectStore("todos");
 
@@ -37,7 +34,7 @@ function addTodo(title, dueDate, id = Date.now()) {
         title: title,
         dueDate: dueDate,  // Date sting in the form YYYY-MM-DD
         dueDateObject: new Date(dueDate),
-        completed: false,  // Initially, a todo is not completed
+        completed: completed,  // Initially, a todo is not completed
     };
 
     const request = store.add(todo);
@@ -125,7 +122,7 @@ function fixTodos() {
             todos.forEach(todo => {
                 console.log(todo);
                 deleteTodo(todo.id);
-                addTodo(todo.title, todo.dueDate, todo.id);
+                addTodo(todo.title, todo.dueDate, todo.id, todo.completed);
             });
         }).catch(error => {
             console.error('Failed to fix todos:', error);
@@ -134,11 +131,13 @@ function fixTodos() {
 
 function formatDate(dateYMD) {
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
     const dateObject = new Date(dateYMD);
 
     let dateString = '';
 
+    dateString += days[dateObject.getDay()] + ' ';
     dateString += dateObject.getDate() + ' ';
     dateString += months[dateObject.getMonth()] + ' ';
     dateString += dateObject.getFullYear();
@@ -152,11 +151,10 @@ function getSettings() {
     };
 }
 
-document.getElementById('sort-by').addEventListener('change', function () {
-    renderTodos();
-});
-
 function renderTodos() {
+    // Make sure all todos have the same structure
+    fixTodos();
+
     const listElement = document.getElementById('todos');
 
     // Use the Promise returned by getAllTodos
@@ -216,6 +214,10 @@ function renderTodos() {
             console.error('Failed to render todos:', error);
         });
 }
+
+document.getElementById('sort-by').addEventListener('change', function () {
+    renderTodos();
+});
 
 const modal = document.getElementById('create-modal');
 const openButton = document.getElementById('new-todo');

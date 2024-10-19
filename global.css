@@ -236,27 +236,22 @@ select::-ms-expand {
     display: none;
 }
 
-/* scrollbar */
-/* width */
 ::-webkit-scrollbar {
     width: 10px;
 }
 
-/* Track */
 ::-webkit-scrollbar-track {
     background: var(--sidebar-colour);
 
     border-radius: 10px;
 }
 
-/* Handle */
 ::-webkit-scrollbar-thumb {
     background: #262931;
 
     border-radius: 10px;
 }
 
-/* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
     background: #404555;
 }
